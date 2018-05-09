@@ -5,10 +5,6 @@ class DynamicProgramming
     @blairnums[1] = 1
     @blairnums[2] = 2
 
-    @froghopsbttm = Hash.new(false)
-    @froghopsbttm[1] = [[1]]
-    @froghopsbttm[2] = [[1,1], [2]]
-    @froghopsbttm[3] = [[1,1,1], [2,1], [1,2], [3]]
   end
 
   def blair_nums(n)
@@ -18,19 +14,25 @@ class DynamicProgramming
   end
 
   def frog_hops_bottom_up(n)
-    return @froghopsbttm[n] if @froghopsbttm[n]
+    three_back = [[1]]
+    two_back = [[1,1], [2]]
+    one_back = [[1,1,1], [2,1], [1,2], [3]]
+    return three_back if n == 1
+    return two_back if n == 2
+    return one_back if n == 3
     counter = 4
     while counter<=n
-      one_back = @froghopsbttm[counter-1]
-      one_back = one_back.deep_dup.each{|hop| hop.push(1)}
-      two_back = @froghopsbttm[counter-2]
-      two_back = two_back.dup.each{|hop| hop.push(2)}
-      three_back = @froghopsbttm[counter-3]
-      three_back = three_back.dup.each{|hop| hop.push(3)}
-      @froghopsbttm[counter] = one_back + two_back + three_back
+      three_back_next = three_back.map{|hop| hop + [3]}
+      two_back_next = two_back.map{|hop| hop+ [2]}
+      one_back_next = one_back.map{|hop| hop+ [1]}
+      three_back = two_back
+
+      two_back = one_back
+      one_back = three_back_next + two_back_next + one_back_next
       counter+=1
+
     end
-    @froghopsbttm[n]
+    one_back
   end
 
   def frog_cache_builder(n)
@@ -64,5 +66,5 @@ end
 
 d = DynamicProgramming.new()
 
-d.frog_hops_bottom_up(4)
-d.frog_hops_bottom_up(5)
+# d.frog_hops_bottom_up(4)
+# print d.frog_hops_bottom_up(5)
