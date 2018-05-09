@@ -4,6 +4,11 @@ class DynamicProgramming
     @blairnums = Hash.new(false)
     @blairnums[1] = 1
     @blairnums[2] = 2
+
+    @froghopsbttm = Hash.new(false)
+    @froghopsbttm[1] = [[1]]
+    @froghopsbttm[2] = [[1,1], [2]]
+    @froghopsbttm[3] = [[1,1,1], [2,1], [1,2], [3]]
   end
 
   def blair_nums(n)
@@ -13,7 +18,7 @@ class DynamicProgramming
   end
 
   def frog_hops_bottom_up(n)
-
+    @froghopsbttm[n]
   end
 
   def frog_cache_builder(n)
