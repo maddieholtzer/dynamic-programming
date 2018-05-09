@@ -18,6 +18,18 @@ class DynamicProgramming
   end
 
   def frog_hops_bottom_up(n)
+    return @froghopsbttm[n] if @froghopsbttm[n]
+    counter = 4
+    while counter<=n
+      one_back = @froghopsbttm[counter-1]
+      one_back = one_back.deep_dup.each{|hop| hop.push(1)}
+      two_back = @froghopsbttm[counter-2]
+      two_back = two_back.dup.each{|hop| hop.push(2)}
+      three_back = @froghopsbttm[counter-3]
+      three_back = three_back.dup.each{|hop| hop.push(3)}
+      @froghopsbttm[counter] = one_back + two_back + three_back
+      counter+=1
+    end
     @froghopsbttm[n]
   end
 
@@ -49,3 +61,8 @@ class DynamicProgramming
   def maze_solver(maze, start_pos, end_pos)
   end
 end
+
+d = DynamicProgramming.new()
+
+d.frog_hops_bottom_up(4)
+d.frog_hops_bottom_up(5)
