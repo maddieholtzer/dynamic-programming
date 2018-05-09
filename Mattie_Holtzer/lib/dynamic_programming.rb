@@ -1,11 +1,15 @@
 class DynamicProgramming
 
   def initialize
-
+    @blairnums = Hash.new(false)
+    @blairnums[1] = 1
+    @blairnums[2] = 2
   end
 
   def blair_nums(n)
-    return n if n<3
+    return @blairnums[n] if @blairnums[n]
+    @blairnums[n] = blair_nums(n-1) + blair_nums(n-2) + (n*2)-3
+    @blairnums[n]
   end
 
   def frog_hops_bottom_up(n)
