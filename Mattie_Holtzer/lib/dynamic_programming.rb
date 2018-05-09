@@ -40,18 +40,17 @@ class DynamicProgramming
   end
 
   def frog_hops_top_down(n)
-    return 0 if n==1
     frog_hops_top_down_helper(n-1)
-
+    frog_hops_bottom_up(n)
   end
 
   def frog_hops_top_down_helper(n)
-    return 0 if n==1
+    return 0 if n<=1
     frog_hops_top_down_helper(n-1)
   end
 
   def super_frog_hops(n, k)
-
+    
   end
 
   def knapsack(weights, values, capacity)
